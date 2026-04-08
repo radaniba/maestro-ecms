@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MAESTRO ECMS data residency — Canadian AWS regions, categories of data covered, processing architecture, DR and backups, subprocessors, and multi-region options.">
+    <title>Data Residency | MAESTRO ECMS</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img class="logo-icon" src="assets/images/maestro_full_dark.png" alt="MAESTRO">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html#cloud">Infrastructure</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="https://www.ranbiolinks.com/contact" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Contact</a></li>
+                </ul>
+                <div class="hamburger" aria-label="Menu"><span></span><span></span><span></span></div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="legal-content">
+        <div class="container">
+            <div class="legal-header">
+                <h1>Data Residency</h1>
+                <p class="legal-date">Last updated: April 8, 2026</p>
+            </div>
+            <div class="legal-body">
+                <h2>Why data residency matters for ECMS</h2>
+                <p><strong>MAESTRO ECMS</strong> holds controlled documents, training and qualification records, validation evidence, compliance artifacts, and audit trails that may include personal information about workforce members and, in some configurations, health- or research-related metadata. Many sponsors, institutions, and public-sector bodies therefore require that <strong>primary data storage and processing</strong> occur in defined jurisdictions — most often <strong>Canada</strong> for Canadian customers — and that cross-border transfers occur only under documented safeguards.</p>
+                <p>This page describes typical deployment patterns. <strong>Your authoritative commitments appear in your order form, data processing agreement, and security or residency addenda.</strong></p>
+
+                <h2>Primary region: Canada (typical default)</h2>
+                <p>For customers who select a Canadian deployment, production environments commonly use <strong>Amazon Web Services (AWS) region ca-central-1 (Montreal, Quebec)</strong> for:</p>
+                <ul>
+                    <li>Application compute and load-balanced web tiers.</li>
+                    <li>Managed relational databases holding structured metadata, permissions, workflow state, and references to stored objects.</li>
+                    <li>Object storage for document binaries, attachments, and large exports.</li>
+                    <li>Caching and session-oriented stores where used.</li>
+                    <li>Encryption keys managed through the cloud provider’s key management service, created in-region where configured.</li>
+                </ul>
+                <p>Keeping these components in a Canadian AWS region supports data sovereignty expectations for customers subject to <strong>PIPEDA</strong>, provincial private-sector privacy laws, and institutional policies that require Canadian processing.</p>
+
+                <h2>Categories of data covered</h2>
+                <p>When hosted in a Canadian region as described above, the following categories of customer data generally remain within Canada for primary processing and at-rest storage:</p>
+                <ul>
+                    <li><strong>Controlled content:</strong> SOPs, policies, work instructions, forms, study-facing templates, and version history.</li>
+                    <li><strong>Training and competence:</strong> Programs, modules, enrollments, completions, acknowledgements, and training matrices.</li>
+                    <li><strong>Onboarding:</strong> Checklists, task assignments, and evidence tied to HR or contractor onboarding.</li>
+                    <li><strong>Validation and quality records:</strong> CSV packages, protocols, reports, traceability matrices, and linked attachments.</li>
+                    <li><strong>Compliance:</strong> Reports, CAPA records, and related documentation stored in the platform.</li>
+                    <li><strong>Identity and access:</strong> User profiles, role assignments, authentication events (as logged), and administrative configuration.</li>
+                    <li><strong>Audit and activity logs:</strong> Security-relevant and user-attributable events required for GxP-style accountability.</li>
+                    <li><strong>Backups:</strong> Database and object-store backups generated for continuity, retained according to policy.</li>
+                </ul>
+
+                <h2>Processing architecture within the region</h2>
+                <p>To meet residency expectations, not only storage but also routine <strong>processing</strong> should occur in-region:</p>
+                <ul>
+                    <li>Application servers handling requests run on compute in the selected region.</li>
+                    <li>Background workers (for example, report generation, notifications, bulk jobs) execute on compute in the same regional footprint unless your agreement specifies otherwise.</li>
+                    <li>Administrative access by RAN BIOLINKS personnel may occur from Canada or other locations under strict access controls; such access is limited to what is needed for support and operations and is itself logged where applicable.</li>
+                </ul>
+
+                <h2>Disaster recovery and backups</h2>
+                <p>High-availability designs typically replicate data across <strong>multiple Availability Zones</strong> within the same AWS region for fault tolerance. For disaster recovery, encrypted backups may be replicated to another <strong>Canadian</strong> AWS region (for example, ca-west-1, Calgary) when configured — so customer content does not leave Canada for DR purposes.</p>
+                <p>Specific RPO (recovery point objective), RTO (recovery time objective), and backup retention are defined in your agreement or service description.</p>
+
+                <h2>Support, subprocessors, and limited transfers</h2>
+                <p>Like most SaaS providers, RAN BIOLINKS may use subprocessors (for example, for email delivery, ticketing, or monitoring). Subprocessors are required contractually to protect data and to process it only as instructed. Where a subprocessor operates outside Canada, we rely on appropriate safeguards (for example, contractual clauses and technical measures) consistent with applicable law and your agreement.</p>
+                <p>Customers who require <strong>no</strong> subprocessors outside Canada, or who need a named subprocessor list and transfer impact assessment, should engage us during procurement so contractual terms can reflect those constraints.</p>
+
+                <h2>Multi-region and dedicated deployments</h2>
+                <p>Global enterprises may mandate primary hosting in the United States, European Union, United Kingdom, or other regions. RAN BIOLINKS can document a <strong>region-specific architecture</strong> in the customer agreement, including:</p>
+                <ul>
+                    <li>Primary and failover regions.</li>
+                    <li>Data flows between regions (if any) and legal mechanisms for transfer.</li>
+                    <li>Customer-managed encryption keys or dedicated single-tenant instances where required.</li>
+                </ul>
+
+                <h2>Hybrid and customer-managed components</h2>
+                <p>If your architecture integrates MAESTRO ECMS with on-premises systems, third-party eTMF/CTMS platforms, or customer-operated identity providers, data may traverse networks and systems outside RAN BIOLINKS’ direct control. Your organization remains responsible for those flows and for agreements with those vendors.</p>
+
+                <h2>Questions and attestations</h2>
+                <p>For a residency summary suitable for your vendor risk questionnaire, legal review, or institutional security committee, contact <a href="https://www.ranbiolinks.com/contact" target="_blank" rel="noopener noreferrer">RAN BIOLINKS</a>. We can align written descriptions with your specific subscription, region, and integration design.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <a href="index.html"><img src="assets/images/maestro_full_light.png" alt="MAESTRO" class="footer-logo-img"></a>
+                    </div>
+                    <p>Enterprise electronic content &amp; compliance management for life sciences. Built by RAN BIOLINKS CANADA.</p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/ranbiolinks/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://www.ranbiolinks.com" target="_blank" rel="noopener noreferrer" aria-label="Website">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="index.html#platform-value">Library &amp; use</a></li>
+                        <li><a href="index.html#features">Capabilities</a></li>
+                        <li><a href="index.html#benefits">Outcomes</a></li>
+                        <li><a href="index.html#architecture">Architecture</a></li>
+                        <li><a href="index.html#security">Security</a></li>
+                        <li><a href="index.html#cloud">Infrastructure</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="https://www.ranbiolinks.com" target="_blank" rel="noopener noreferrer">RAN BIOLINKS</a></li>
+                        <li><a href="https://www.ranbiolinks.com/contact" target="_blank" rel="noopener noreferrer">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Compliance</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="security.html">Security Overview</a></li>
+                        <li><a href="data-residency.html">Data Residency</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MAESTRO ECMS by RAN BIOLINKS CANADA. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="privacy-policy.html">Privacy</a>
+                    <a href="terms-of-service.html">Terms</a>
+                    <a href="security.html">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
