@@ -496,37 +496,97 @@ nav .btn { margin-left: var(--space-sm); }
 
 /* ---------- Trust Bar ---------- */
 #trust-bar {
-  padding: var(--space-2xl) 0;
-  background: var(--bg-light);
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-subtle) 100%);
   border-bottom: 1px solid var(--border-light);
 }
 
+.trust-bar-head {
+  text-align: center;
+  max-width: 36rem;
+  margin: 0 auto var(--space-xl);
+}
+
+.trust-bar-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+.trust-bar-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
 .trust-badges {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3xl);
-  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+  align-items: stretch;
 }
 
 .trust-badge {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  font-weight: 500;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin: 0;
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
-.trust-badge svg {
-  width: 32px;
-  height: 32px;
+.trust-badge:hover {
+  border-color: rgba(214, 35, 74, 0.22);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-badge:hover {
+    transform: none;
+  }
+}
+
+.trust-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  background: var(--primary-subtle);
   color: var(--primary);
   flex-shrink: 0;
 }
 
-.trust-badge strong {
+.trust-badge-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.trust-badge-text {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.trust-badge-text strong {
   color: var(--text-primary);
+  font-weight: 700;
 }
 
 /* ---------- Section Headers ---------- */
@@ -1474,7 +1534,13 @@ footer {
   .tabs-navigation { gap: 0.15rem; padding: 0.25rem; }
   .tab-btn { font-size: 0.8rem; padding: 0.5rem 0.75rem; }
 
-  .trust-badges { gap: var(--space-lg); }
+  .trust-badges {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+  .trust-badge {
+    padding: var(--space-md);
+  }
   .cloud-providers-bar { gap: var(--space-lg); flex-wrap: wrap; }
 
   .cta-buttons { flex-direction: column; align-items: center; }
@@ -1485,6 +1551,7 @@ footer {
   .hero-content h1 { font-size: 2rem; }
   .footer-grid { grid-template-columns: 1fr; }
   .about-highlights { grid-template-columns: 1fr; }
+  .trust-badges { grid-template-columns: 1fr; }
 }
 
 /* ---------- Legal / Policy Pages ---------- */
